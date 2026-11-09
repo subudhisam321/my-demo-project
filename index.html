@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7f2">
+    <title>Calorie and Nutrition Tracker</title>
+    <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="page-header">
+        <p class="eyebrow">Daily wellness</p>
+        <h1>Calorie and Nutrition Tracker</h1>
+        <p>Keep track of meals and your daily nutrition goals.</p>
+      </header>
+
+      <p id="app-status" class="message" role="status" aria-live="polite"></p>
+
+      <section class="panel" aria-labelledby="day-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Your log</p>
+            <h2 id="day-heading">Selected day</h2>
+          </div>
+          <label class="date-field" for="selected-date">
+            Date
+            <input id="selected-date" name="date" type="date" required>
+          </label>
+        </div>
+
+        <form id="meal-form" class="entry-form">
+          <input id="meal-id" name="mealId" type="hidden">
+          <h3 id="meal-form-heading">Add a meal</h3>
+          <div class="form-grid">
+            <label class="field field-wide" for="meal-name">
+              Meal name
+              <input id="meal-name" name="name" type="text" autocomplete="off" required>
+            </label>
+            <label class="field" for="meal-calories">
+              Calories (kcal)
+              <input id="meal-calories" name="calories" type="text" inputmode="decimal" placeholder="0" required>
+            </label>
+            <label class="field" for="meal-protein">
+              Protein (g)
+              <input id="meal-protein" name="protein" type="text" inputmode="decimal" placeholder="0" required>
+            </label>
+          </div>
+          <div class="button-row">
+            <button id="meal-submit" type="submit">Add meal</button>
+            <button id="cancel-edit" class="button-secondary" type="button" hidden>Cancel edit</button>
+          </div>
+        </form>
+
+        <div class="meal-section">
+          <div class="section-heading compact-heading">
+            <h3>Meals</h3>
+            <span id="meal-count" class="muted"></span>
+          </div>
+          <p id="empty-state" class="empty-state">No meals recorded for this day yet.</p>
+          <ul id="meal-list" class="meal-list" aria-label="Meals for selected day"></ul>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="targets-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Your goals</p>
+            <h2 id="targets-heading">Daily targets</h2>
+          </div>
+          <span class="muted">For the selected date</span>
+        </div>
+        <form id="target-form" class="entry-form">
+          <div class="form-grid">
+            <label class="field" for="target-calories">
+              Calorie target (kcal)
+              <input id="target-calories" name="calories" type="text" inputmode="decimal" placeholder="No target">
+            </label>
+            <label class="field" for="target-protein">
+              Protein target (g)
+              <input id="target-protein" name="protein" type="text" inputmode="decimal" placeholder="No target">
+            </label>
+          </div>
+          <p class="field-hint">Leave a target blank to treat it as zero.</p>
+          <button type="submit">Save targets</button>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="totals-heading">
+        <p class="eyebrow">Today at a glance</p>
+        <h2 id="totals-heading">Daily totals</h2>
+        <div class="totals-grid">
+          <article class="total-card">
+            <h3>Calories</h3>
+            <p><strong id="total-calories">0</strong><span> kcal consumed</span></p>
+            <p class="progress-detail">Target: <span id="calorie-target-display">0</span> kcal</p>
+            <p class="progress-detail">Remaining: <span id="calorie-remaining">0</span> kcal</p>
+            <p id="calorie-status" class="status-pill">met</p>
+          </article>
+          <article class="total-card">
+            <h3>Protein</h3>
+            <p><strong id="total-protein">0</strong><span> g consumed</span></p>
+            <p class="progress-detail">Target: <span id="protein-target-display">0</span> g</p>
+            <p class="progress-detail">Remaining: <span id="protein-remaining">0</span> g</p>
+            <p id="protein-status" class="status-pill">met</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

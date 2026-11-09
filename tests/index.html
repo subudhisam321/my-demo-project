@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tracker tests</title>
+    <style>
+      body { max-width: 760px; margin: 40px auto; padding: 0 16px; font: 16px/1.5 "Segoe UI", Arial, sans-serif; color: #23332d; }
+      li { margin: 8px 0; }
+      .pass { color: #17613e; }
+      .fail { color: #a33a2e; }
+    </style>
+    <script type="module">
+      import { runCalculatorTests } from "./calculator.test.js";
+      import { runValidatorTests } from "./validator.test.js";
+
+      const results = document.querySelector("#results");
+      const summary = document.querySelector("#summary");
+      let passed = 0;
+      let failed = 0;
+
+      async function test(name, assertion) {
+        const item = document.createElement("li");
+        try {
+          await assertion();
+          item.className = "pass";
+          item.textContent = `PASS: ${name}`;
+          passed += 1;
+        } catch (error) {
+          item.className = "fail";
+          item.textContent = `FAIL: ${name} — ${error.message}`;
+          failed += 1;
+        }
+        results.append(item);
+      }
+
+      function equal(actual, expected) {
+        if (!Object.is(actual, expected)) {
+          throw new Error(`expected ${JSON.stringify(expected)}, received ${JSON.stringify(actual)}`);
+        }
+      }
+
+      await runCalculatorTests(test, equal);
+      await runValidatorTests(test, equal);
+      summary.textContent = `${passed} passed, ${failed} failed`;
+      summary.setAttribute("role", failed === 0 ? "status" : "alert");
+    </script>
+  </head>
+  <body>
+    <h1>Calorie tracker tests</h1>
+    <p id="summary" aria-live="polite">Running tests…</p>
+    <ol id="results"></ol>
+    <p><a href="../index.html">Return to the tracker</a></p>
+  </body>
+</html>
